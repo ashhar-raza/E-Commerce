@@ -1,14 +1,17 @@
 import axios from "axios";
-import { getToken } from "../util/jwtToken";
+import { getAuthToken } from "../util/authToken";
+
+
 
 const axiosInstance = axios.create({
     baseURL: 'https://api.escuelajs.co/api/v1/',
 });
 
-const token = getToken();
+
+
 axiosInstance.interceptors.request.use(
     (config) => {
-
+        const token = getAuthToken();
         if (token) {
             config.headers.Authorization = `Bearer ${token}`;
         }
